@@ -1,0 +1,14 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Spring Boot-CroppyApplication<croppy>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.marcelo.croppy.CroppyApplication",
+      "projectName": "croppy",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    }
+  ]
+}

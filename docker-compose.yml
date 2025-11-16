@@ -1,0 +1,33 @@
+services:
+  db:
+    image: mariadb:10
+    restart: unless-stopped
+    volumes:
+      - mysql_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${REMOTE_DB_PASSWORD}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+    healthcheck:
+      test: mysqladmin ping -h 127.0.0.1 -u ${DB_USER} --password=${DB_PASSWORD}
+      timeout: 20s
+      retries: 10
+    ports:
+      - ${DB_PORT}:3306
+  adminer:
+    image: adminer
+    restart: unless-stopped
+    depends_on:
+      - db
+    ports:
+      - 8000:8080
+
+  mailhog:
+    image: 'jcalonso/mailhog:latest'
+    ports:
+      - '1025:1025'
+      - '8025:8025'
+
+volumes:
+  mysql_data:
